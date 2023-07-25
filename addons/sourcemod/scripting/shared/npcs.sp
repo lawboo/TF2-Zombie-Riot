@@ -580,7 +580,7 @@ public void NPC_SpawnNext(bool force, bool panzer, bool panzer_warning)
 
 							if(boss.SoundCustom)
 							{
-								EmitCustomToClient(panzer_warning_client, boss.Sound, panzer_warning_client, SNDCHAN_AUTO, 90, _, 2.0);
+								EmitSoundToClient(panzer_warning_client, boss.Sound, panzer_warning_client, SNDCHAN_AUTO, 90, _, 2.0);
 							}
 							else
 							{
@@ -1111,10 +1111,10 @@ public Action NPC_TraceAttack(int victim, int& attacker, int& inflictor, float& 
 							{
 								if(IsClientInGame(client) && client != attacker)
 								{
-									EmitCustomToClient(client, "zombiesurvival/headshot1.wav", victim, _, 80, _, volume, pitch);
+									EmitSoundToClient(client, "zombiesurvival/headshot1.wav", victim, _, 80, _, volume, pitch);
 								}
 							}
-							EmitCustomToClient(attacker, "zombiesurvival/headshot1.wav", _, _, 90, _, volume, pitch);
+							EmitSoundToClient(attacker, "zombiesurvival/headshot1.wav", _, _, 90, _, volume, pitch);
 						}
 						case 2:
 						{
@@ -1122,10 +1122,10 @@ public Action NPC_TraceAttack(int victim, int& attacker, int& inflictor, float& 
 							{
 								if(IsClientInGame(client) && client != attacker)
 								{
-									EmitCustomToClient(client, "zombiesurvival/headshot2.wav", victim, _, 80, _, volume, pitch);
+									EmitSoundToClient(client, "zombiesurvival/headshot2.wav", victim, _, 80, _, volume, pitch);
 								}
 							}
-							EmitCustomToClient(attacker, "zombiesurvival/headshot2.wav", _, _, 90, _, volume, pitch);
+							EmitSoundToClient(attacker, "zombiesurvival/headshot2.wav", _, _, 90, _, volume, pitch);
 						}
 					}
 				}

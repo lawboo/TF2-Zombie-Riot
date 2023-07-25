@@ -1002,7 +1002,7 @@ float f_ExplodeDamageVulnerabilityNpc[MAXENTITIES];
 #include "shared/custom_melee_logic.sp"
 #include "shared/dhooks.sp"
 #include "shared/events.sp"
-#include "shared/filenetwork.sp"
+//#include "shared/filenetwork.sp"
 #include "shared/killfeed.sp"
 #include "shared/npcs.sp"
 #include "shared/sdkcalls.sp"

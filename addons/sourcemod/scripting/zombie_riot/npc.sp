@@ -3842,6 +3842,7 @@ Action NpcSpecificOnTakeDamage(int victim, int &attacker, int &inflictor, float 
 #include "zombie_riot/npc/alt/npc_alt_mecha_soldier_barrager.sp"
 
 
+#include "zombie_riot/npc/medival/npc_medival_base.sp"
 #include "zombie_riot/npc/medival/npc_medival_militia.sp"
 #include "zombie_riot/npc/medival/npc_medival_archer.sp"
 #include "zombie_riot/npc/medival/npc_medival_man_at_arms.sp"

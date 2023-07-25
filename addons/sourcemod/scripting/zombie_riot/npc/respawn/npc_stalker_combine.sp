@@ -178,7 +178,7 @@ methodmap StalkerCombine < StalkerShared
 		EmitCustomToAll(RandomSound[rand], this.index, SNDCHAN_VOICE, BOSS_ZOMBIE_SOUNDLEVEL, _, BOSS_ZOMBIE_VOLUME);
 
 		if(client > 0 && client <= MaxClients)
-			EmitCustomToClient(client, RandomSound[rand], this.index, SNDCHAN_VOICE, BOSS_ZOMBIE_SOUNDLEVEL, _, BOSS_ZOMBIE_VOLUME);
+			EmitSoundToClient(client, RandomSound[rand], this.index, SNDCHAN_VOICE, BOSS_ZOMBIE_SOUNDLEVEL, _, BOSS_ZOMBIE_VOLUME);
 	}
 	public void PlaySpecialSound()
 	{

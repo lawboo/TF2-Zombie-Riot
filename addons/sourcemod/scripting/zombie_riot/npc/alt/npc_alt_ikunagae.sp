@@ -120,17 +120,13 @@ methodmap Ikunagae < CClotBody
 		EmitSoundToAll(g_IdleAlertedSounds[GetRandomInt(0, sizeof(g_IdleAlertedSounds) - 1)], this.index, SNDCHAN_STATIC, BOSS_ZOMBIE_SOUNDLEVEL, _, BOSS_ZOMBIE_VOLUME, 80);
 		this.m_flNextIdleSound = GetGameTime(this.index) + GetRandomFloat(4.0, 7.0);
 		
-		#if defined DEBUG_SOUND
-		PrintToServer("CClot::PlayIdleAlertSound()");
-		#endif
+
 	}
 	
 	public void PlayMeleeHitSound() {
 		EmitSoundToAll(g_MeleeHitSounds[GetRandomInt(0, sizeof(g_MeleeHitSounds) - 1)], this.index, SNDCHAN_STATIC, BOSS_ZOMBIE_SOUNDLEVEL, _, BOSS_ZOMBIE_VOLUME, GetRandomInt(80, 85));
 		
-		#if defined DEBUG_SOUND
-		PrintToServer("CClot::PlayMeleeHitSound()");
-		#endif
+
 	}
 	public void PlayDeathSound() {
 		
@@ -148,9 +144,7 @@ methodmap Ikunagae < CClotBody
 		EmitSoundToAll(g_HurtSounds[GetRandomInt(0, sizeof(g_HurtSounds) - 1)], this.index, SNDCHAN_STATIC, BOSS_ZOMBIE_SOUNDLEVEL, _, BOSS_ZOMBIE_VOLUME, 80);
 		
 		
-		#if defined DEBUG_SOUND
-		PrintToServer("CClot::PlayHurtSound()");
-		#endif
+
 	}
 	public void PlayPullSound() {
 		EmitSoundToAll(g_PullSounds[GetRandomInt(0, sizeof(g_PullSounds) - 1)], this.index, SNDCHAN_STATIC, NORMAL_ZOMBIE_SOUNDLEVEL, _, NORMAL_ZOMBIE_VOLUME);

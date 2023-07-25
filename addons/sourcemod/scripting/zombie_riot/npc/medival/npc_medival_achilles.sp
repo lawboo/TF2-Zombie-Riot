@@ -1,12 +1,7 @@
 #pragma semicolon 1
 #pragma newdecls required
 
-static const char g_DeathSounds[][] = {
-	"npc/metropolice/die1.wav",
-	"npc/metropolice/die2.wav",
-	"npc/metropolice/die3.wav",
-	"npc/metropolice/die4.wav",
-};
+
 
 
 
@@ -34,10 +29,10 @@ static const char g_MeleeMissSounds[][] = {
 
 void MedivalAchilles_OnMapStart_NPC()
 {
-	for (int i = 0; i < (sizeof(g_DeathSounds));	   i++) { PrecacheSound(g_DeathSounds[i]);	   }
-	for (int i = 0; i < (sizeof(g_HurtSounds));		i++) { PrecacheSound(g_HurtSounds[i]);		}
-	for (int i = 0; i < (sizeof(g_IdleSounds));		i++) { PrecacheSound(g_IdleSounds[i]);		}
-	for (int i = 0; i < (sizeof(g_IdleAlertedSounds)); i++) { PrecacheSound(g_IdleAlertedSounds[i]); }
+	for (int i = 0; i < (sizeof(g_Medieval_DeathSounds));	   i++) { PrecacheSound(g_Medieval_DeathSounds[i]);	   }
+	for (int i = 0; i < (sizeof(g_Medieval_HurtSounds));		i++) { PrecacheSound(g_Medieval_HurtSounds[i]);		}
+	for (int i = 0; i < (sizeof(g_Medieval_IdleSounds));		i++) { PrecacheSound(g_Medieval_IdleSounds[i]);		}
+	for (int i = 0; i < (sizeof(g_Medieval_IdleAlertedSounds)); i++) { PrecacheSound(g_Medieval_IdleAlertedSounds[i]); }
 	for (int i = 0; i < (sizeof(g_MeleeHitSounds));	i++) { PrecacheSound(g_MeleeHitSounds[i]);	}
 	for (int i = 0; i < (sizeof(g_MeleeAttackSounds));	i++) { PrecacheSound(g_MeleeAttackSounds[i]);	}
 	for (int i = 0; i < (sizeof(g_MeleeMissSounds));   i++) { PrecacheSound(g_MeleeMissSounds[i]);   }
@@ -50,7 +45,7 @@ methodmap MedivalAchilles < CClotBody
 	public void PlayIdleSound() {
 		if(this.m_flNextIdleSound > GetGameTime(this.index))
 			return;
-		EmitSoundToAll(g_IdleSounds[GetRandomInt(0, sizeof(g_IdleSounds) - 1)], this.index, SNDCHAN_VOICE, NORMAL_ZOMBIE_SOUNDLEVEL, _, NORMAL_ZOMBIE_VOLUME, 100);
+		EmitSoundToAll(g_Medieval_IdleSounds[GetRandomInt(0, sizeof(g_Medieval_IdleSounds) - 1)], this.index, SNDCHAN_VOICE, NORMAL_ZOMBIE_SOUNDLEVEL, _, NORMAL_ZOMBIE_VOLUME, 100);
 		this.m_flNextIdleSound = GetGameTime(this.index) + GetRandomFloat(24.0, 48.0);
 		
 		#if defined DEBUG_SOUND
@@ -62,7 +57,7 @@ methodmap MedivalAchilles < CClotBody
 		if(this.m_flNextIdleSound > GetGameTime(this.index))
 			return;
 		
-		EmitSoundToAll(g_IdleAlertedSounds[GetRandomInt(0, sizeof(g_IdleAlertedSounds) - 1)], this.index, SNDCHAN_VOICE, NORMAL_ZOMBIE_SOUNDLEVEL, _, NORMAL_ZOMBIE_VOLUME, 100);
+		EmitSoundToAll(g_Medieval_IdleAlertedSounds[GetRandomInt(0, sizeof(g_Medieval_IdleAlertedSounds) - 1)], this.index, SNDCHAN_VOICE, NORMAL_ZOMBIE_SOUNDLEVEL, _, NORMAL_ZOMBIE_VOLUME, 100);
 		this.m_flNextIdleSound = GetGameTime(this.index) + GetRandomFloat(12.0, 24.0);
 		
 		#if defined DEBUG_SOUND
@@ -76,7 +71,7 @@ methodmap MedivalAchilles < CClotBody
 			
 		this.m_flNextHurtSound = GetGameTime(this.index) + 0.4;
 		
-		EmitSoundToAll(g_HurtSounds[GetRandomInt(0, sizeof(g_HurtSounds) - 1)], this.index, SNDCHAN_VOICE, NORMAL_ZOMBIE_SOUNDLEVEL, _, NORMAL_ZOMBIE_VOLUME, 100);
+		EmitSoundToAll(g_Medieval_HurtSounds[GetRandomInt(0, sizeof(g_Medieval_HurtSounds) - 1)], this.index, SNDCHAN_VOICE, NORMAL_ZOMBIE_SOUNDLEVEL, _, NORMAL_ZOMBIE_VOLUME, 100);
 		
 		
 		#if defined DEBUG_SOUND
@@ -86,7 +81,7 @@ methodmap MedivalAchilles < CClotBody
 	
 	public void PlayDeathSound() {
 	
-		EmitSoundToAll(g_DeathSounds[GetRandomInt(0, sizeof(g_DeathSounds) - 1)], this.index, SNDCHAN_VOICE, NORMAL_ZOMBIE_SOUNDLEVEL, _, NORMAL_ZOMBIE_VOLUME, 100);
+		EmitSoundToAll(g_Medieval_DeathSounds[GetRandomInt(0, sizeof(g_Medieval_DeathSounds) - 1)], this.index, SNDCHAN_VOICE, NORMAL_ZOMBIE_SOUNDLEVEL, _, NORMAL_ZOMBIE_VOLUME, 100);
 		
 		#if defined DEBUG_SOUND
 		PrintToServer("CClot::PlayDeathSound()");

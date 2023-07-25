@@ -111,9 +111,7 @@ methodmap BobTheGod < CClotBody
 		EmitSoundToAll(g_IdleSounds[GetRandomInt(0, sizeof(g_IdleSounds) - 1)], this.index, SNDCHAN_VOICE, 80, _, 1.0);
 		this.m_flNextIdleSound = GetGameTime(this.index) + GetRandomFloat(24.0, 48.0);
 		
-		#if defined DEBUG_SOUND
-		PrintToServer("CClot::PlayIdleSound()");
-		#endif
+
 	}
 	
 	public void PlayIdleAlertSound() {
@@ -123,9 +121,7 @@ methodmap BobTheGod < CClotBody
 		EmitSoundToAll(g_IdleAlertedSounds[GetRandomInt(0, sizeof(g_IdleAlertedSounds) - 1)], this.index, SNDCHAN_VOICE, 80, _, 1.0);
 		this.m_flNextIdleSound = GetGameTime(this.index) + GetRandomFloat(12.0, 24.0);
 		
-		#if defined DEBUG_SOUND
-		PrintToServer("CClot::PlayIdleAlertSound()");
-		#endif
+
 	}
 	
 	public void PlayHurtSound() {
@@ -133,35 +129,27 @@ methodmap BobTheGod < CClotBody
 		EmitSoundToAll(g_HurtSounds[GetRandomInt(0, sizeof(g_HurtSounds) - 1)], this.index, SNDCHAN_VOICE, 80, _, 1.0);
 		this.m_flNextHurtSound = GetGameTime(this.index) + GetRandomFloat(0.6, 1.6);
 		
-		#if defined DEBUG_SOUND
-		PrintToServer("CClot::PlayHurtSound()");
-		#endif
+
 	}
 	
 	public void PlayMovingSound() {
 		
 		EmitSoundToAll(g_Moving_Sound[GetRandomInt(0, sizeof(g_Moving_Sound) - 1)], this.index, SNDCHAN_VOICE, 80, _, 1.0);
 		
-		#if defined DEBUG_SOUND
-		PrintToServer("CClot::PlayHurtSound()");
-		#endif
+
 	}
 	
 	public void PlayDeathSound() {
 	
 		EmitSoundToAll(g_DeathSounds[GetRandomInt(0, sizeof(g_DeathSounds) - 1)], this.index, SNDCHAN_VOICE, 80, _, 1.0);
 		
-		#if defined DEBUG_SOUND
-		PrintToServer("CClot::PlayDeathSound()");
-		#endif
+
 	}
 	
 	public void PlayMeleeSound() {
 		EmitSoundToAll(g_MeleeAttackSounds[GetRandomInt(0, sizeof(g_MeleeAttackSounds) - 1)], this.index, _, 80, _, 1.0);
 		
-		#if defined DEBUG_SOUND
-		PrintToServer("CClot::PlayMeleeHitSound()");
-		#endif
+
 	}
 	
 	public void PlayRangedSound() {
@@ -190,17 +178,13 @@ methodmap BobTheGod < CClotBody
 	public void PlayMeleeHitSound() {
 		EmitSoundToAll(g_MeleeHitSounds[GetRandomInt(0, sizeof(g_MeleeHitSounds) - 1)], this.index, _, 80, _, 1.0);
 		
-		#if defined DEBUG_SOUND
-		PrintToServer("CClot::PlayMeleeHitSound()");
-		#endif
+
 	}
 
 	public void PlayMeleeMissSound() {
 		EmitSoundToAll(g_MeleeMissSounds[GetRandomInt(0, sizeof(g_MeleeMissSounds) - 1)], this.index, _, 80, _, 1.0);
 		
-		#if defined DEBUG_SOUND
-		PrintToServer("CGoreFast::PlayMeleeMissSound()");
-		#endif
+
 	}
 
 

@@ -237,7 +237,7 @@ void EmitMusicToClient(int client, const char[] sound, bool custom, float volume
 {
 	if(custom)
 	{
-		EmitCustomToClient(client, sound, client, SNDCHAN_STATIC, SNDLEVEL_NONE, flags, volume);
+		EmitSoundToClient(client, sound, client, SNDCHAN_STATIC, SNDLEVEL_NONE, flags, volume);
 	}
 	else
 	{

@@ -13,9 +13,11 @@ static int ExtraLevel[MAXTF2PLAYERS];
 
 void FileNetwork_PluginStart()
 {
+	/*
 	SoundList = new ArrayList(ByteCountToCells(PLATFORM_MAX_PATH));
 	SoundAlts = new StringMap();
 	ExtraList = new ArrayList(ByteCountToCells(PLATFORM_MAX_PATH));
+	*/
 }
 
 void FileNetwork_MapEnd()
@@ -51,6 +53,7 @@ void FileNetwork_ClientDisconnect(int client)
 
 void FileNetwork_ConfigSetup(KeyValues map)
 {
+	return;
 	char buffer[PLATFORM_MAX_PATH];
 	BuildPath(Path_SM, buffer, sizeof(buffer), CONFIG_CFG, "downloads");
 	KeyValues kv = new KeyValues("Downloads");
@@ -165,6 +168,7 @@ void PrecacheSoundCustom(const char[] sound, const char[] altsound = "", int del
 
 public void FileNetwork_AddSoundFrame(DataPack pack)
 {
+	return;
 	pack.Reset();
 
 	char buffer[PLATFORM_MAX_PATH];
@@ -175,6 +179,7 @@ public void FileNetwork_AddSoundFrame(DataPack pack)
 
 static void AddSoundFile(const char[] sound)
 {
+	return;
 	if(SoundList.FindString(sound) == -1)
 	{
 		SoundList.PushString(sound);
@@ -352,7 +357,7 @@ public void FileNetwork_SendFileCheck(int client, const char[] file, bool succes
 		LogError("Failed to delete file \"%s\"", file);
 }
 
-stock bool EmitCustomToClient(int client, const char[] sound, int entity = SOUND_FROM_PLAYER, int channel = SNDCHAN_AUTO, int level = SNDLEVEL_NORMAL, int flags = SND_NOFLAGS, float volume = SNDVOL_NORMAL, int pitch = SNDPITCH_NORMAL, int speakerentity = -1, const float origin[3]=NULL_VECTOR, const float dir[3]=NULL_VECTOR, bool updatePos = true, float soundtime = 0.0)
+stock bool EmitSoundToClient(int client, const char[] sound, int entity = SOUND_FROM_PLAYER, int channel = SNDCHAN_AUTO, int level = SNDLEVEL_NORMAL, int flags = SND_NOFLAGS, float volume = SNDVOL_NORMAL, int pitch = SNDPITCH_NORMAL, int speakerentity = -1, const float origin[3]=NULL_VECTOR, const float dir[3]=NULL_VECTOR, bool updatePos = true, float soundtime = 0.0)
 {
 #if defined UseDownloadTable
 	float volume2 = volume;

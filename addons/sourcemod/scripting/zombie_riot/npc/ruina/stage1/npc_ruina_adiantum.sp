@@ -60,9 +60,7 @@ methodmap Adiantum < CClotBody
 		EmitSoundToAll(g_IdleSounds[GetRandomInt(0, sizeof(g_IdleSounds) - 1)], this.index, SNDCHAN_VOICE, BOSS_ZOMBIE_SOUNDLEVEL, _, BOSS_ZOMBIE_VOLUME, RUINA_NPC_PITCH);
 		this.m_flNextIdleSound = GetGameTime(this.index) + GetRandomFloat(24.0, 48.0);
 		
-		#if defined DEBUG_SOUND
-		PrintToServer("CClot::PlayIdleSound()");
-		#endif
+
 	}
 	public void PlayIdleAlertSound() {
 		if(this.m_flNextIdleSound > GetGameTime(this.index))
@@ -71,17 +69,13 @@ methodmap Adiantum < CClotBody
 		EmitSoundToAll(g_IdleAlertedSounds[GetRandomInt(0, sizeof(g_IdleAlertedSounds) - 1)], this.index, SNDCHAN_STATIC, NORMAL_ZOMBIE_SOUNDLEVEL, _, NORMAL_ZOMBIE_VOLUME, RUINA_NPC_PITCH);
 		this.m_flNextIdleSound = GetGameTime(this.index) + GetRandomFloat(4.0, 7.0);
 		
-		#if defined DEBUG_SOUND
-		PrintToServer("CClot::PlayIdleAlertSound()");
-		#endif
+
 	}
 	
 	public void PlayMeleeHitSound() {
 		EmitSoundToAll(g_MeleeHitSounds[GetRandomInt(0, sizeof(g_MeleeHitSounds) - 1)], this.index, SNDCHAN_STATIC, NORMAL_ZOMBIE_SOUNDLEVEL, _, NORMAL_ZOMBIE_VOLUME, RUINA_NPC_PITCH);
 		
-		#if defined DEBUG_SOUND
-		PrintToServer("CClot::PlayMeleeHitSound()");
-		#endif
+
 	}
 	public void PlayDeathSound() {
 		
@@ -99,9 +93,7 @@ methodmap Adiantum < CClotBody
 		EmitSoundToAll(g_HurtSounds[GetRandomInt(0, sizeof(g_HurtSounds) - 1)], this.index, SNDCHAN_STATIC, NORMAL_ZOMBIE_SOUNDLEVEL, _, NORMAL_ZOMBIE_VOLUME, RUINA_NPC_PITCH);
 		
 		
-		#if defined DEBUG_SOUND
-		PrintToServer("CClot::PlayHurtSound()");
-		#endif
+
 	}
 	public Adiantum(int client, float vecPos[3], float vecAng[3], bool ally)
 	{
