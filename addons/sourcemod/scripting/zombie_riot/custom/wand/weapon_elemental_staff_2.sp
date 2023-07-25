@@ -225,7 +225,7 @@ public void Weapon_Passanger_Attack(int client, int weapon, bool crit, int slot)
 
 			EmitSoundToAll(SOUND_WAND_PASSANGER, client, SNDCHAN_AUTO, 80, _, 0.9, GetRandomInt(95, 110));
 
-			if(IsValidEnemy(client, target))
+			if(IsValidEnemy(client, target, true))
 			{
 				//We have found a victim.
 				GetBeamDrawStartPoint_Stock(client, belowBossEyes);

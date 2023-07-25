@@ -80,7 +80,7 @@ public Action Homing_Shots_Repeat_Timer_Chlorophite(Handle timer, int ref)
 			}
 			return Plugin_Continue;
 		}
-		int Closest = GetClosestTarget(entity, _, _, true);
+		int Closest = GetClosestTarget(entity, _, _, false);
 		if(IsValidEnemy(RMR_RocketOwner[entity], Closest))
 		{
 			RMR_CurrentHomingTarget[entity] = Closest;

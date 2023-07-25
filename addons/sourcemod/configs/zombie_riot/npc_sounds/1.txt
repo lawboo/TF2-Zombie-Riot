@@ -1,0 +1,18 @@
+sounds_for_zombies
+{
+	"1" 
+	{
+		"1"	"npc/zombie/zombie_die1.wav",
+		"2"	"npc/zombie/zombie_die2.wav",
+		"3"	"npc/zombie/zombie_die3.wav",
+	}
+	"2"
+	{
+		"1"	"npc/zombie/zombie_pain1.wav",
+		"2"	"npc/zombie/zombie_pain2.wav",
+		"3"	"npc/zombie/zombie_pain3.wav",
+		"4"	"npc/zombie/zombie_pain4.wav",
+		"5"	"npc/zombie/zombie_pain5.wav",
+		"6"	"npc/zombie/zombie_pain6.wav",
+	}
+}

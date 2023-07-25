@@ -344,7 +344,7 @@ public Action Ark_Homing_Repeat_Timer(Handle timer, int ref)
 			}
 			return Plugin_Continue;
 		}
-		int Closest = GetClosestTarget(entity, _, _, true);
+		int Closest = GetClosestTarget(entity, _, _, false);
 		if(IsValidEnemy(RMR_RocketOwner[entity], Closest))
 		{
 			RMR_CurrentHomingTarget[entity] = Closest;
@@ -644,7 +644,7 @@ void Weapon_ark_LapplandRangedAttack(int client, int weapon)
 
 	time *= Attributes_Get(weapon, 102, 1.0);
 
-	if(IsValidEnemy(client, target))
+	if(IsValidEnemy(client, target, true))
 	{
 		int projectile = Wand_Projectile_Spawn(client, speed, time, damage, WEAPON_LAPPLAND, weapon, "manmelter_projectile_trail");
 		

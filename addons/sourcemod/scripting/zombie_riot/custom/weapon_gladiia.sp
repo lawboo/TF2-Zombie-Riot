@@ -476,7 +476,7 @@ void Gladiia_RangedAttack(int client, int weapon)
 
 	int projectile = Wand_Projectile_Spawn(client, speed, time, damage, WEAPON_GLADIIA, weapon, "rockettrail_bubbles");
 
-	if(IsValidEnemy(client, target))
+	if(IsValidEnemy(client, target, true))
 	{
 		if(Can_I_See_Enemy_Only(target,projectile)) //Insta home!
 		{

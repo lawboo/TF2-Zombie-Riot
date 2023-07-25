@@ -3711,8 +3711,16 @@ public bool IsEntityTraversable(CBaseNPC_Locomotion loco, int other_entidx, Trav
 		}	
 		if(other_entidx > 0 && other_entidx <= MaxClients)
 		{
+			if(b_NpcAvoidPlayers[bot_entidx])
+			{
+				return false;
+			}
 			return true;
 		}
+		if(!b_IsAlliedNpc[other_entidx])
+		{
+			return false;
+		}	
 		if(b_CantCollidie[other_entidx])
 		{
 			return true;
@@ -3727,8 +3735,15 @@ public bool IsEntityTraversable(CBaseNPC_Locomotion loco, int other_entidx, Trav
 		}	
 		if(other_entidx > 0 && other_entidx <= MaxClients)
 		{
-			return true;
+			if(b_NpcAvoidPlayers[bot_entidx])
+			{
+				return false;
+			}
 		}
+		if(b_IsAlliedNpc[other_entidx])
+		{
+			return false;
+		}	
 		if(b_CantCollidieAlly[other_entidx])
 		{
 			return true;
@@ -7200,6 +7215,7 @@ public void SetDefaultValuesToZeroNPC(int entity)
 	b_AttackHappenswillhappen[entity] = false;
 	b_thisNpcIsABoss[entity] = false;
 	b_thisNpcIsARaid[entity] = false;
+	b_NpcAvoidPlayers[entity] = false;
 	b_StaticNPC[entity] = false;
 	b_NPCVelocityCancel[entity] = false;
 	b_NPCTeleportOutOfStuck[entity] = false;

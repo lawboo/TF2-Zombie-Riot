@@ -101,7 +101,7 @@ methodmap Diversionistico < CClotBody
 
 	public Diversionistico(int client, float vecPos[3], float vecAng[3], bool ally)
 	{
-		Diversionistico npc = view_as<Diversionistico>(CClotBody(vecPos, vecAng, "models/player/spy.mdl", "1.0", "750", ally, false, true, true));
+		Diversionistico npc = view_as<Diversionistico>(CClotBody(vecPos, vecAng, "models/player/spy.mdl", "1.0", "750", ally, false , false, true));
 		
 		i_NpcInternalId[npc.index] = EXPIDONSA_DIVERSIONISTICO;
 		i_NpcWeight[npc.index] = 1;
@@ -124,6 +124,8 @@ methodmap Diversionistico < CClotBody
 		npc.m_flGetClosestTargetTime = 0.0;
 		npc.StartPathing();
 		npc.m_flSpeed = 330.0;
+		npc.m_bCamo = true;
+		b_NpcAvoidPlayers[npc.index] = true;
 		
 		
 		int skin = 1;
@@ -207,11 +209,11 @@ public void Diversionistico_ClotThink(int iNPC)
 
 	if(npc.m_flGetClosestTargetTime < GetGameTime(npc.index))
 	{
-		npc.m_iTarget = GetClosestTarget(npc.index, true);
+		npc.m_iTarget = GetClosestTarget(npc.index, true,_,true);
 		npc.m_flGetClosestTargetTime = GetGameTime(npc.index) + GetRandomRetargetTime();
 	}
 	
-	if(IsValidEnemy(npc.index, npc.m_iTarget))
+	if(IsValidEnemy(npc.index, npc.m_iTarget, true))
 	{
 		float vecTarget[3]; vecTarget = WorldSpaceCenter(npc.m_iTarget);
 	
@@ -220,18 +222,20 @@ public void Diversionistico_ClotThink(int iNPC)
 		{
 			float vPredictedPos[3];
 			vPredictedPos = PredictSubjectPosition(npc, npc.m_iTarget);
-			NPC_SetGoalVector(npc.index, vPredictedPos);
+			vPredictedPos = GetBehindTargetVec(npc.m_iTarget,40.0, vPredictedPos);
+			NPC_SetGoalVector(npc.index, vPredictedPos, true);
 		}
 		else 
 		{
 			NPC_SetGoalEntity(npc.index, npc.m_iTarget);
 		}
+
 		DiversionisticoSelfDefense(npc,GetGameTime(npc.index), npc.m_iTarget, flDistanceToTarget); 
 	}
 	else
 	{
 		npc.m_flGetClosestTargetTime = 0.0;
-		npc.m_iTarget = GetClosestTarget(npc.index, true);
+		npc.m_iTarget = GetClosestTarget(npc.index, true,_,true);
 	}
 	npc.PlayIdleAlertSound();
 }
@@ -278,13 +282,13 @@ void DiversionisticoSelfDefense(Diversionistico npc, float gameTime, int target,
 	bool BackstabDone = false;
 	if(gameTime > npc.m_flNextMeleeAttack)
 	{
-		if(distance < Pow(NORMAL_ENEMY_MELEE_RANGE_FLOAT * 1.0, 2.0))
+		if(distance < Pow(NORMAL_ENEMY_MELEE_RANGE_FLOAT, 2.0))
 		{
 			int Enemy_I_See;					
 			Enemy_I_See = Can_I_See_Enemy(npc.index, npc.m_iTarget);
 			
 			npc.FaceTowards(WorldSpaceCenter(npc.m_iTarget), 15000.0);
-			if(IsValidEnemy(npc.index, Enemy_I_See))
+			if(IsValidEnemy(npc.index, Enemy_I_See,true))
 			{
 				npc.PlayMeleeSound();
 				if(IsBehindAndFacingTarget(npc.index, npc.m_iTarget))
@@ -316,7 +320,7 @@ void DiversionisticoSelfDefense(Diversionistico npc, float gameTime, int target,
 				float vecHit[3];
 				TR_GetEndPosition(vecHit, swingTrace);
 				
-				if(IsValidEnemy(npc.index, target))
+				if(IsValidEnemy(npc.index, target, true))
 				{
 					float damageDealt = 50.0;
 
@@ -406,4 +410,21 @@ void TeleportDiversioToRandLocation(int iNPC)
 		TeleportEntity(npc.index, AproxRandomSpaceToWalkTo);
 		break;
 	}
+}
+
+
+
+float[] GetBehindTargetVec(int enemy, float amount, float VectorStart[3])
+{
+	float VecForward[3];
+	float vecRight[3];
+	float vecUp[3];
+	float vecPos[3];
+				
+	GetVectors(enemy, VecForward, vecRight, vecUp); //Sorry i dont know any other way with this :(
+				
+	vecPos[0] = VectorStart[0] - VecForward[0] * (amount);
+	vecPos[1] = VectorStart[1] - VecForward[1] * (amount);
+	vecPos[2] = VectorStart[2];/*+ VecForward[2] * (100);*/
+	return vecPos;
 }
