@@ -3288,7 +3288,9 @@ public MRESReturn CBaseAnimating_HandleAnimEvent(int pThis, Handle hParams)
 {
 	int event = DHookGetParamObjectPtrVar(hParams, 1, 0, ObjectValueType_Int);
 	CClotBody npc = view_as<CClotBody>(pThis);
-	
+	if(b_NpcHasDied[pThis]) //no longer of existance.
+		return MRES_Ignored;
+		
 #if defined ZR
 	switch(i_NpcInternalId[pThis])
 	{
@@ -6325,20 +6327,55 @@ stock float[] PredictSubjectPosition(CClotBody npc, int subject, float Extra_lea
 	}
 	
 		
-//	int g_iPathLaserModelIndex = PrecacheModel("materials/sprites/laserbeam.vmt");
-//	TE_SetupBeamPoints(botPos, pathTarget, g_iPathLaserModelIndex, g_iPathLaserModelIndex, 0, 30, 1.0, 1.0, 0.1, 5, 0.0, view_as<int>({255, 0, 0, 255}), 30);
-//	TE_SendToAll();
+	int g_iPathLaserModelIndex = PrecacheModel("materials/sprites/laserbeam.vmt");
+	TE_SetupBeamPoints(botPos, pathTarget, g_iPathLaserModelIndex, g_iPathLaserModelIndex, 0, 30, 1.0, 1.0, 0.1, 5, 0.0, view_as<int>({255, 0, 0, 255}), 30);
+	TE_SendToAll();
 	
-	CNavArea leadArea = TheNavMesh.GetNearestNavArea( pathTarget );
-	
-	
-	if (leadArea == NULL_AREA || leadArea.GetZ(pathTarget[0], pathTarget[1]) < pathTarget[2] - npc.GetMaxJumpHeight())
+	Handle hProf = CreateProfiler();
+	StartProfiling(hProf);
+
+//	CNavArea leadArea = TheNavMesh.GetNearestNavArea( pathTarget );
+	float pathTarget_calc[3];
+	int Tolerance = 0;
+	CNavArea leadArea;
+	for(int RepeatNavCheck = -1; RepeatNavCheck <= 1; RepeatNavCheck++)
 	{
+		pathTarget_calc = pathTarget;
+		pathTarget_calc[2] += (25.0 * RepeatNavCheck);
+		for(int RepeatNavCheck_1 = -1; RepeatNavCheck_1 <= 1; RepeatNavCheck_1++)
+		{
+			pathTarget_calc[1] += (15.0 * RepeatNavCheck_1);
+			for(int RepeatNavCheck_2 = -1; RepeatNavCheck_2 <= 1; RepeatNavCheck_2++)
+			{
+				pathTarget_calc[0] += (15.0 * RepeatNavCheck_2);
+				leadArea = TheNavMesh.GetNavArea(pathTarget_calc, 75.0);
+				if (leadArea == NULL_AREA/* || leadArea.GetZ(pathTarget[0], pathTarget[1]) < pathTarget[2] - npc.GetMaxJumpHeight()*/)
+				{
+					Tolerance += 1;
+				}
+				/*
+				if (Tolerance > 9)
+				{
+					break;
+				}
+				*/
+			}
+		}
+	}
+	
+	StopProfiling(hProf);
+	PrintToChatAll("Total build time1: %f", GetProfilerTime(hProf));
+
+	PrintToChatAll("Tolerance: %i",Tolerance);
+	if (Tolerance > 26) //too many fails.
+	{
+	
 		// would fall off a cliff
 		return subjectPos;	
 	}
 	
 	//todo: find better code to not clip through very thin walls, but this works for now
+	/*
 	Handle trace; 
 	trace = TR_TraceRayFilterEx(subjectPos, pathTarget, MASK_NPCSOLID | MASK_PLAYERSOLID, RayType_EndPoint, TraceRayHitWorldOnly, 0); //If i hit a wall, i stop retreatring and accept death, for now!
 	
@@ -6346,11 +6383,7 @@ stock float[] PredictSubjectPosition(CClotBody npc, int subject, float Extra_lea
 	{
 		TR_GetEndPosition(pathTarget, trace);
 	}
-//	TE_SetupBeamPoints(botPos, pathTarget, g_iPathLaserModelIndex, g_iPathLaserModelIndex, 0, 30, 1.0, 1.0, 0.1, 5, 0.0, view_as<int>({0, 0, 255, 255}), 30);
-//	TE_SendToAll();
-	
-	delete trace;
-	
+	*/
 
 	pathTarget[2] += 20.0; //Clip them up, minimum crouch level preferred, or else the bots get really confused and sometimees go otther ways if the player goes up or down somewhere, very thin stairs break these bots.
 	
