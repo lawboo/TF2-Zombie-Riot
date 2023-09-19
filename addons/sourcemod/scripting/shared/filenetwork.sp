@@ -171,6 +171,8 @@ public void FileNetwork_AddSoundFrame(DataPack pack)
 	pack.ReadString(buffer, sizeof(buffer));
 
 	AddSoundFile(buffer);
+
+	delete pack;
 }
 
 static void AddSoundFile(const char[] sound)
