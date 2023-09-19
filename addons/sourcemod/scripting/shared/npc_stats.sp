@@ -1346,11 +1346,6 @@ methodmap CClotBody < CBaseCombatCharacter
 		speed_for_return = this.m_flSpeed;
 		
 		speed_for_return *= this.GetDebuffPercentage();
-
-		if(!b_IsAlliedNpc[this.index])
-		{
-			speed_for_return *= Zombie_DelayExtraSpeed();
-		}
 		
 		return speed_for_return; 
 	}
@@ -4060,7 +4055,7 @@ stock int GetClosestTarget(int entity,
 	 int ingore_client = -1, 
 	 float EntityLocation[3] = {0.0,0.0,0.0},
 	  bool CanSee = false,
-	   float fldistancelimitAllyNPC = 450.0,
+	   float fldistancelimitAllyNPC = 350.0,
 	   bool IgnorePlayers = false,
 	   bool UseVectorDistance = false,
   		float MinimumDistance = 0.0,
@@ -4274,16 +4269,10 @@ void GetClosestTarget_AddTarget(int entity, int type)
 		if (GetClosestTarget_EnemiesToCollect[i] == 0)
 		{
 			GetClosestTarget_EnemiesToCollect[i] = entity;
-			GetClosestTarget_Enemy_Type[entity] = type;
-			break; //same as break;
+			GetClosestTarget_Enemy_Type[i] = type;
+			i = MAXENTITIES; //same as break;
 		}
 	}	
-}
-
-void GetClosestTarget_ResetAllTargets()
-{
-	Zero(GetClosestTarget_EnemiesToCollect);
-	Zero(GetClosestTarget_Enemy_Type);
 }
 
 int GetClosestTarget_Internal(int entity, float fldistancelimit, float fldistancelimitAllyNPC, const float EntityLocation[3], bool UseVectorDistance, float MinimumDistance)
@@ -4345,13 +4334,9 @@ int GetClosestTarget_Internal(int entity, float fldistancelimit, float fldistanc
 					// See if it's the closest nav
 					if(dist == -5.5)
 						dist = area2.GetCostSoFar();
-						
-					if(dist == 0.0)
-						dist = GetVectorDistance(targetPos[a], EntityLocation, false);
-
-
+					
 				//	PrintToChatAll("%f > %f", dist, fldistancelimit);
-					if(GetClosestTarget_Enemy_Type[GetClosestTarget_EnemiesToCollect[a]] > 2)	// Distance limit
+					if(GetClosestTarget_Enemy_Type[i] > 2)	// Distance limit
 					{
 						if(dist > fldistancelimitAllyNPC)
 						{
@@ -4374,8 +4359,8 @@ int GetClosestTarget_Internal(int entity, float fldistancelimit, float fldistanc
 		}
 
 		delete iterator;
-		
-		if(closeNav != NULL_AREA)	// Found our closest nav, find the closest enemy on this nav
+
+		if(closeNav != NULL_AREA)
 		{
 			closeDist = maxDistance * maxDistance;
 			//float minDistance1 = fldistancelimit * fldistancelimit;
@@ -4388,7 +4373,7 @@ int GetClosestTarget_Internal(int entity, float fldistancelimit, float fldistanc
 				
 				if(targetNav[i] != closeNav)	// In this close nav
 					continue;
-
+				
 				float dist = GetVectorDistance(targetPos[i], EntityLocation, true);
 				if(dist > closeDist)	// Closest entity
 					continue;
@@ -4488,7 +4473,7 @@ int GetClosestTarget_Internal(int entity, float fldistancelimit, float fldistanc
 	}
 
 
-	GetClosestTarget_ResetAllTargets();
+
 	return ClosestTarget;
 }
 
